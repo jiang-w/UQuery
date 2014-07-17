@@ -12,6 +12,7 @@
 		01B25A2F197774B800222495 /* UQuery.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 01B25A2E197774B800222495 /* UQuery.1 */; };
 		01B25A391977751900222495 /* FieldQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A361977751900222495 /* FieldQuery.m */; };
 		01B25A3A1977751900222495 /* UQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A381977751900222495 /* UQuery.m */; };
+		01B25A3D1977773A00222495 /* RelationQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A3C1977773A00222495 /* RelationQuery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,8 @@
 		01B25A361977751900222495 /* FieldQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldQuery.m; sourceTree = "<group>"; };
 		01B25A371977751900222495 /* UQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UQuery.h; sourceTree = "<group>"; };
 		01B25A381977751900222495 /* UQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UQuery.m; sourceTree = "<group>"; };
+		01B25A3B1977773A00222495 /* RelationQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationQuery.h; sourceTree = "<group>"; };
+		01B25A3C1977773A00222495 /* RelationQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationQuery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				01B25A2A197774B800222495 /* main.m */,
+				01B25A3B1977773A00222495 /* RelationQuery.h */,
+				01B25A3C1977773A00222495 /* RelationQuery.m */,
 				01B25A351977751900222495 /* FieldQuery.h */,
 				01B25A361977751900222495 /* FieldQuery.m */,
 				01B25A371977751900222495 /* UQuery.h */,
@@ -151,6 +156,7 @@
 			files = (
 				01B25A2B197774B800222495 /* main.m in Sources */,
 				01B25A3A1977751900222495 /* UQuery.m in Sources */,
+				01B25A3D1977773A00222495 /* RelationQuery.m in Sources */,
 				01B25A391977751900222495 /* FieldQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +271,7 @@
 				01B25A34197774B800222495 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -82,7 +82,7 @@
     if (self == object) {
         return YES;
     }
-    if ([object isMemberOfClass:[FieldQuery class]]) {
+    if ([object isMemberOfClass:[self class]]) {
         if([[self serializeToJson] isEqualToString:[object serializeToJson]]) {
             return YES;
         }
