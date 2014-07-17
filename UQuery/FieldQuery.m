@@ -41,7 +41,7 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObject:val forKey:_key];
     if ([NSJSONSerialization isValidJSONObject:dic]) {
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&error];
         json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
     return json;
