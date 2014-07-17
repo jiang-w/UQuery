@@ -42,13 +42,8 @@
 - (NSString *)serializeToJson
 {
     NSString *json;
-    NSInteger count = [_queries count];
-    if (count > 1) {
-        NSMutableArray *items = [NSMutableArray arrayWithCapacity:count];
-        for (FieldQuery *fq in _queries) {
-            [items addObject:[fq serializeToJson]];
-        }
-        json = [NSString stringWithFormat:@"{\"%@\":[%@]}",[RelationQuery relationTypeToJsonString:self.relation],[items componentsJoinedByString:@","]];
+    if ([_queries count] > 1) {
+        json = [NSString stringWithFormat:@"{\"%@\":[%@]}",[RelationQuery relationTypeToJsonString:_relation],[_queries componentsJoinedByString:@","]];
     }
     return json;
 }

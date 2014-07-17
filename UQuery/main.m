@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FieldQuery.h"
+#import "RelationQuery.h"
 
 int main(int argc, const char * argv[])
 {
@@ -26,6 +27,15 @@ int main(int argc, const char * argv[])
         else {
             printf("fq1 not equal fq2\n");
         }
+        
+        FieldQuery * fq3 = [[FieldQuery alloc] initKey:@"def" andValue:[NSNumber numberWithFloat:12.3] andQueryType:equal];
+        RelationQuery *rq1 = [[RelationQuery alloc] initWithRelation:andRelation andFieldQuery:fq1,fq2,fq3,nil];
+        NSLog(@"%@",rq1);
+        
+        NSData *jsonData = [[rq1 serializeToJson] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+        NSLog(@"%@",jsonDic);
     }
     return 0;
 }

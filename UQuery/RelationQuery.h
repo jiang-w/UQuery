@@ -7,7 +7,8 @@
 //
 
 #import "UQuery.h"
-#import "FieldQuery.h"
+
+@class FieldQuery;
 
 typedef enum {
     andRelation,
