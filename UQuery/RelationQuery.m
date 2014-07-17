@@ -107,4 +107,18 @@
     return label;
 }
 
++ (RelationType)relationTypeFromJsonString:(NSString *) str
+{
+    RelationType typ;
+    if ([str isEqualToString:@"$and"]) {
+        typ = andRelation;
+    } else if ([str isEqualToString:@"$or"]) {
+        typ = orRelation;
+    }
+    else {
+        typ = andRelation;
+    }
+    return typ;
+}
+
 @end

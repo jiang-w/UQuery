@@ -21,5 +21,6 @@ typedef enum {
 @property (readonly) NSMutableArray *queries;
 
 - (instancetype)initWithRelation:(RelationType) relation andFieldQuery:(FieldQuery *) query,...;
++ (RelationType)relationTypeFromJsonString:(NSString *) str;
 
 @end

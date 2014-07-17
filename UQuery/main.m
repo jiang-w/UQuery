@@ -35,6 +35,15 @@ int main(int argc, const char * argv[])
         NSData *jsonData = [[rq1 serializeToJson] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
         NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+        
+//        RelationType typ = [RelationQuery relationTypeFromJsonString:[jsonDic keyEnumerator].nextObject];
+//        NSMutableArray *queries = [NSMutableArray arrayWithCapacity:2];
+//        for (id item in [jsonDic objectEnumerator].nextObject) {
+//            //[queries addObject:[FieldQuery DeserializeFromJson:[item description]]];
+//            NSLog(@"%@",[item description]);
+//        }
+        
+        
         NSLog(@"%@",jsonDic);
     }
     return 0;
