@@ -10,6 +10,8 @@
 		01B25A28197774B800222495 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B25A27197774B800222495 /* Foundation.framework */; };
 		01B25A2B197774B800222495 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A2A197774B800222495 /* main.m */; };
 		01B25A2F197774B800222495 /* UQuery.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 01B25A2E197774B800222495 /* UQuery.1 */; };
+		01B25A391977751900222495 /* FieldQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A361977751900222495 /* FieldQuery.m */; };
+		01B25A3A1977751900222495 /* UQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B25A381977751900222495 /* UQuery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,10 @@
 		01B25A2A197774B800222495 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01B25A2D197774B800222495 /* UQuery-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UQuery-Prefix.pch"; sourceTree = "<group>"; };
 		01B25A2E197774B800222495 /* UQuery.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = UQuery.1; sourceTree = "<group>"; };
+		01B25A351977751900222495 /* FieldQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldQuery.h; sourceTree = "<group>"; };
+		01B25A361977751900222495 /* FieldQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldQuery.m; sourceTree = "<group>"; };
+		01B25A371977751900222495 /* UQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UQuery.h; sourceTree = "<group>"; };
+		01B25A381977751900222495 /* UQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UQuery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,10 @@
 			isa = PBXGroup;
 			children = (
 				01B25A2A197774B800222495 /* main.m */,
+				01B25A351977751900222495 /* FieldQuery.h */,
+				01B25A361977751900222495 /* FieldQuery.m */,
+				01B25A371977751900222495 /* UQuery.h */,
+				01B25A381977751900222495 /* UQuery.m */,
 				01B25A2E197774B800222495 /* UQuery.1 */,
 				01B25A2C197774B800222495 /* Supporting Files */,
 			);
@@ -140,6 +150,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				01B25A2B197774B800222495 /* main.m in Sources */,
+				01B25A3A1977751900222495 /* UQuery.m in Sources */,
+				01B25A391977751900222495 /* FieldQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
