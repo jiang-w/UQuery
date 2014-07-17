@@ -7,8 +7,7 @@
 //
 
 #import "UQuery.h"
-
-@class FieldQuery;
+#import "FieldQuery.h"
 
 typedef enum {
     andRelation,
@@ -18,7 +17,7 @@ typedef enum {
 @interface RelationQuery : UQuery
 
 @property (readonly) RelationType relation;
-@property (readonly) NSMutableArray *queries;
+@property (readonly) NSMutableSet *queries;
 
 - (instancetype)initWithRelation:(RelationType) relation andFieldQuery:(FieldQuery *) query,...;
 + (RelationType)relationTypeFromJsonString:(NSString *) str;

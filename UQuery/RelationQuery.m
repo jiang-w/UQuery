@@ -13,7 +13,7 @@
 - (id)init
 {
     if (self == [super init]) {
-        _queries = [NSMutableArray array];
+        _queries = [NSMutableSet setWithCapacity:2];
         _relation = andRelation;
     }
     return self;
@@ -29,9 +29,7 @@
             [_queries addObject:query];
             va_start(argList, query);
             while((arg = va_arg(argList,id))) {
-                if (![_queries containsObject:arg]) {
-                    [_queries addObject:arg];
-                }
+                [_queries addObject:arg];
             }
             va_end(argList);
         }
@@ -43,7 +41,12 @@
 {
     NSString *json;
     if ([_queries count] > 1) {
-        json = [NSString stringWithFormat:@"{\"%@\":[%@]}",[RelationQuery relationTypeToJsonString:_relation],[_queries componentsJoinedByString:@","]];
+        NSMutableArray *items = [NSMutableArray array];
+        for (FieldQuery *fq in _queries) {
+            [items addObject:[fq serializeToJson]];
+        }
+        json = [NSString stringWithFormat:@"{\"%@\":[%@]}"
+                ,[RelationQuery relationTypeToJsonString:_relation],[items componentsJoinedByString:@","]];
     }
     return json;
 }
@@ -56,24 +59,10 @@
     if (self == object) {
         return YES;
     }
-    if ([object isMemberOfClass:[self class]]) {
-        RelationQuery *tmp = (RelationQuery *)object;
-        if(_relation == tmp.relation && [_queries count] == [tmp.queries count]) {
-            for (id item in tmp.queries) {
-                if (![_queries containsObject:item]) {
-                    return NO;
-                }
-            }
-            for (id item in _queries) {
-                if (![tmp.queries containsObject:item]) {
-                    return NO;
-                }
-            }
-            return YES;
-        }
-        else {
-            return NO;
-        }
+    if ([object isMemberOfClass:[self class]]
+        && _relation == [object relation]
+        && [_queries isEqualToSet:[object queries]]) {
+        return YES;
     }
     else {
         return NO;

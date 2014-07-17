@@ -12,7 +12,6 @@
 
 int main(int argc, const char * argv[])
 {
-    
     @autoreleasepool {
         
         FieldQuery * fq1 = [[FieldQuery alloc] initKey:@"abc" andValue:[NSDate date] andQueryType:greater];
@@ -31,20 +30,15 @@ int main(int argc, const char * argv[])
         FieldQuery * fq3 = [[FieldQuery alloc] initKey:@"def" andValue:[NSNumber numberWithFloat:12.3] andQueryType:equal];
         RelationQuery *rq1 = [[RelationQuery alloc] initWithRelation:andRelation andFieldQuery:fq1,fq2,fq3,nil];
         NSLog(@"%@",rq1);
+        RelationQuery *rq2 = [[RelationQuery alloc] initWithRelation:andRelation andFieldQuery:fq3,fq2,fq3,nil];
+        NSLog(@"%@",rq2);
         
-        NSData *jsonData = [[rq1 serializeToJson] dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error;
-        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-        
-//        RelationType typ = [RelationQuery relationTypeFromJsonString:[jsonDic keyEnumerator].nextObject];
-//        NSMutableArray *queries = [NSMutableArray arrayWithCapacity:2];
-//        for (id item in [jsonDic objectEnumerator].nextObject) {
-//            //[queries addObject:[FieldQuery DeserializeFromJson:[item description]]];
-//            NSLog(@"%@",[item description]);
-//        }
-        
-        
-        NSLog(@"%@",jsonDic);
+        if ([rq1 isEqual:rq2]) {
+            printf("rq1 equal rq2\n");
+        }
+        else {
+            printf("rq1 not equal rq2\n");
+        }
     }
     return 0;
 }
