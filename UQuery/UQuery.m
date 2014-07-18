@@ -8,6 +8,7 @@
 
 #import "UQuery.h"
 #import "FieldQuery.h"
+#import "RelationQuery.h"
 
 @implementation UQuery
 
@@ -57,5 +58,36 @@
     return query;
 }
 
++ (instancetype)andRelationWithQuerise:(UQuery *) query,...
+{
+    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:andRelation andFieldQuery:nil];
+    va_list argList;
+    id arg;
+    if (query) {
+        [rq.queries addObject:query];
+        va_start(argList, query);
+        while((arg = va_arg(argList,id))) {
+            [rq.queries addObject:arg];
+        }
+        va_end(argList);
+    }
+    return rq;
+}
+
++ (instancetype)orRelationWithQuerise:(UQuery *) query,...
+{
+    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:orRelation andFieldQuery:nil];
+    va_list argList;
+    id arg;
+    if (query) {
+        [rq.queries addObject:query];
+        va_start(argList, query);
+        while((arg = va_arg(argList,id))) {
+            [rq.queries addObject:arg];
+        }
+        va_end(argList);
+    }
+    return rq;
+}
 
 @end

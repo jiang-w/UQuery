@@ -18,5 +18,7 @@
 + (instancetype)lessOrEqualWithKey:(NSString *) key andValue:(NSObject *) val;
 + (instancetype)equalWithKey:(NSString *) key andValue:(NSObject *) val;
 + (instancetype)notEqualWithKey:(NSString *) key andValue:(NSObject *) val;
++ (instancetype)andRelationWithQuerise:(UQuery *) query,...;
++ (instancetype)orRelationWithQuerise:(UQuery *) query,...;
 
 @end
