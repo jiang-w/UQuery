@@ -13,7 +13,7 @@
 - (instancetype)initKey:(NSString *) key andValue:(NSObject *) val andQueryType:(QueryType) typ
 {
     if (self = [super init]) {
-        _key = [NSString stringWithString:key];
+        _key = key;
         _value = val;
         _type = typ;
     }
