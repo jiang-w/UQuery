@@ -19,7 +19,7 @@
 
 + (instancetype)DeserializeFromJson:(NSString *) jsonString
 {
-    return nil;
+    return [FieldQuery DeserializeFromJson:jsonString];
 }
 
 + (instancetype)greaterWithKey:(NSString *) key andValue:(NSObject*) val
