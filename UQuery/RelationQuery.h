@@ -19,6 +19,6 @@ typedef enum {
 @property (readonly) RelationType relation;
 @property (readonly) NSMutableSet *queries;
 
-- (instancetype)initWithRelation:(RelationType) relation andFieldQuery:(FieldQuery *) query,...;
+- (instancetype)initWithRelation:(RelationType) relation andFieldQuery:(FieldQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end

@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
         NSLog(@"%@",uq3);
         NSLog(@"%@",uq4);
         
-        NSString *objClass = NSStringFromClass([UQuery class]);
+        NSString *objClass = NSStringFromClass([uq4 class]);
         NSLog(@"%@",objClass);
     }
 }

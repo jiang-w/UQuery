@@ -8,9 +8,9 @@
 
 #import "RelationQuery.h"
 
-#define JsonArray [NSArray arrayWithObjects:@"$and", @"$or", nil]
-#define EnumToJsonString(type) ([JsonArray objectAtIndex:type])
-#define EnumFromJsonString(string) ([JsonArray indexOfObject:string])
+#define Type_Mapping_Json [NSArray arrayWithObjects:@"$and", @"$or", nil]
+#define TypeToJsonString(type) ([Type_Mapping_Json objectAtIndex:type])
+#define TypeFromJsonString(string) ([Type_Mapping_Json indexOfObject:string])
 
 @implementation RelationQuery
 
@@ -50,7 +50,7 @@
             [items addObject:[fq serializeToJson]];
         }
         json = [NSString stringWithFormat:@"{\"%@\":[%@]}"
-                ,EnumToJsonString(_relation),[items componentsJoinedByString:@","]];
+                ,TypeToJsonString(_relation),[items componentsJoinedByString:@","]];
     }
     return json;
 }

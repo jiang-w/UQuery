@@ -9,9 +9,9 @@
 #import "FieldQuery.h"
 
 #define Default_Date_Format @"yyyy-MM-dd'T'HH:mm:ss"
-#define JsonArray [NSArray arrayWithObjects:@"$gt", @"$gte", @"$lt", @"$lte", @"$eq", @"$ne", @"$in", @"$nin",@"$lk", nil]
-#define EnumToJsonString(type) ([JsonArray objectAtIndex:type])
-#define EnumFromJsonString(string) ([JsonArray indexOfObject:string])
+#define Type_Mapping_Json [NSArray arrayWithObjects:@"$gt", @"$gte", @"$lt", @"$lte", @"$eq", @"$ne", @"$in", @"$nin",@"$lk", nil]
+#define TypeToJsonString(type) ([Type_Mapping_Json objectAtIndex:type])
+#define TypeFromJsonString(string) ([Type_Mapping_Json indexOfObject:string])
 
 @implementation FieldQuery
 
@@ -39,7 +39,7 @@
     }
     
     if (_type != equal) {
-        NSDictionary *tmp = [NSDictionary dictionaryWithObject:val forKey:EnumToJsonString(_type)];
+        NSDictionary *tmp = [NSDictionary dictionaryWithObject:val forKey:TypeToJsonString(_type)];
         val = tmp;
     }
     
@@ -63,7 +63,7 @@
     QueryType typ = equal;
     
     if ([val isKindOfClass:[NSDictionary class]]) {
-        typ = (int)EnumFromJsonString([val keyEnumerator].nextObject);
+        typ = (int)TypeFromJsonString([val keyEnumerator].nextObject);
         val = [val objectEnumerator].nextObject;
     }
     
