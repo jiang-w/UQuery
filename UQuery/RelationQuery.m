@@ -8,6 +8,10 @@
 
 #import "RelationQuery.h"
 
+#define JsonArray [NSArray arrayWithObjects:@"$and", @"$or", nil]
+#define EnumToJsonString(type) ([JsonArray objectAtIndex:type])
+#define EnumFromJsonString(string) ([JsonArray indexOfObject:string])
+
 @implementation RelationQuery
 
 - (id)init
@@ -46,7 +50,7 @@
             [items addObject:[fq serializeToJson]];
         }
         json = [NSString stringWithFormat:@"{\"%@\":[%@]}"
-                ,[RelationQuery relationTypeToJsonString:_relation],[items componentsJoinedByString:@","]];
+                ,EnumToJsonString(_relation),[items componentsJoinedByString:@","]];
     }
     return json;
 }
@@ -77,37 +81,6 @@
 - (NSString *)description
 {
     return [self serializeToJson];
-}
-
-+ (NSString *)relationTypeToJsonString:(RelationType) relation
-{
-    NSString *label;
-    switch (relation) {
-        case andRelation:
-            label = @"$and";
-            break;
-        case orRelation:
-            label = @"$or";
-            break;
-        default:
-            label = nil;
-            break;
-    }
-    return label;
-}
-
-+ (RelationType)relationTypeFromJsonString:(NSString *) str
-{
-    RelationType typ;
-    if ([str isEqualToString:@"$and"]) {
-        typ = andRelation;
-    } else if ([str isEqualToString:@"$or"]) {
-        typ = orRelation;
-    }
-    else {
-        typ = andRelation;
-    }
-    return typ;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UQuery.h"
+#import "RelationQuery.h"
 
 int main(int argc, const char * argv[])
 {
@@ -21,5 +22,8 @@ int main(int argc, const char * argv[])
         NSLog(@"%@",uq2);
         NSLog(@"%@",uq3);
         NSLog(@"%@",uq4);
+        
+        NSString *objClass = NSStringFromClass([UQuery class]);
+        NSLog(@"%@",objClass);
     }
 }

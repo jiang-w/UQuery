@@ -7,7 +7,11 @@
 //
 
 #import "FieldQuery.h"
+
 #define Default_Date_Format @"yyyy-MM-dd'T'HH:mm:ss"
+#define JsonArray [NSArray arrayWithObjects:@"$gt", @"$gte", @"$lt", @"$lte", @"$eq", @"$ne", @"$in", @"$nin",@"$lk", nil]
+#define EnumToJsonString(type) ([JsonArray objectAtIndex:type])
+#define EnumFromJsonString(string) ([JsonArray indexOfObject:string])
 
 @implementation FieldQuery
 
@@ -35,7 +39,7 @@
     }
     
     if (_type != equal) {
-        NSDictionary *tmp = [NSDictionary dictionaryWithObject:val forKey:[FieldQuery queryTypeToJsonString:_type]];
+        NSDictionary *tmp = [NSDictionary dictionaryWithObject:val forKey:EnumToJsonString(_type)];
         val = tmp;
     }
     
@@ -59,7 +63,7 @@
     QueryType typ = equal;
     
     if ([val isKindOfClass:[NSDictionary class]]) {
-        typ = [FieldQuery queryTypeFromJsonString:[val keyEnumerator].nextObject];
+        typ = (int)EnumFromJsonString([val keyEnumerator].nextObject);
         val = [val objectEnumerator].nextObject;
     }
     
@@ -104,74 +108,6 @@
 - (NSString *)description
 {
     return [self serializeToJson];
-}
-
-+ (NSString *)queryTypeToJsonString:(QueryType) typ
-{
-    NSString *label;
-    switch (typ) {
-        case greater:
-            label = @"$gt";
-            break;
-        case greaterOrEqual:
-            label = @"$gte";
-            break;
-        case less:
-            label = @"$lt";
-            break;
-        case lessOrEqual:
-            label = @"$lte";
-            break;
-        case in:
-            label = @"$in";
-            break;
-        case notIn:
-            label = @"$nin";
-            break;
-        case like:
-            label = @"$lk";
-            break;
-        case notEqual:
-            label = @"$ne";
-            break;
-        default:
-            label = nil;
-            break;
-    }
-    return label;
-}
-
-+ (QueryType)queryTypeFromJsonString:(NSString *) str
-{
-    QueryType typ;
-    if ([str isEqualToString:@"$gt"]) {
-        typ = greater;
-    }
-    else if ([str isEqualToString:@"$gte"]) {
-        typ = greaterOrEqual;
-    }
-    else if ([str isEqualToString:@"$lt"]) {
-        typ = less;
-    }
-    else if ([str isEqualToString:@"$lte"]) {
-        typ = lessOrEqual;
-    }
-    else if ([str isEqualToString:@"$in"]) {
-        typ = in;
-    }
-    else if ([str isEqualToString:@"$nin"]) {
-        typ = notIn;
-    }
-    else if ([str isEqualToString:@"$lk"]) {
-        typ = like;
-    }
-    else if ([str isEqualToString:@"$ne"]) {
-        typ = notEqual;
-    }
-    else {
-        typ = equal;
-    }
-    return typ;
 }
 
 @end
