@@ -7,7 +7,7 @@
 //
 
 #import "FieldQuery.h"
-#define Date_Format_String @"yyyy-MM-dd'T'HH:mm:ss"
+#define Default_Date_Format @"yyyy-MM-dd'T'HH:mm:ss"
 
 @implementation FieldQuery
 
@@ -27,7 +27,7 @@
     id val;
     if([_value isKindOfClass:[NSDate class]]) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:Date_Format_String];
+        [dateFormatter setDateFormat:Default_Date_Format];
         val = [dateFormatter stringFromDate:[NSDate date]];
     }
     else {
@@ -65,7 +65,7 @@
     
     if ([val isKindOfClass:[NSString class]]) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:Date_Format_String];
+        [dateFormatter setDateFormat:Default_Date_Format];
         NSDate *date =[dateFormatter dateFromString:val];
         if(date) {
             val = date;
