@@ -8,7 +8,7 @@
 
 #import "RelationQuery.h"
 
-#define Type_Mapping_Json [NSArray arrayWithObjects:@"$and", @"$or", nil]
+#define Type_Mapping_Json @[@"$and", @"$or"]
 #define TypeToJsonString(type) ([Type_Mapping_Json objectAtIndex:type])
 #define TypeFromJsonString(string) ([Type_Mapping_Json indexOfObject:string])
 
@@ -53,6 +53,26 @@
                 ,TypeToJsonString(_relation),[items componentsJoinedByString:@","]];
     }
     return json;
+}
+
++ (instancetype)DeserializeFromJson:(NSString *) jsonString
+{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+    
+    RelationType typ = (int)TypeFromJsonString([jsonDic keyEnumerator].nextObject);
+    NSArray *values = [jsonDic objectEnumerator].nextObject;
+    
+    RelationQuery *rq = [[RelationQuery alloc] init];
+    [rq setValue:[NSNumber numberWithInt:typ] forKey:@"_relation"];
+    for (id item in values) {
+        jsonData = [NSJSONSerialization dataWithJSONObject:item options:0 error:&error];
+        NSString *json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [rq.queries addObject:[FieldQuery DeserializeFromJson:json]];
+    }
+    
+    return rq;
 }
 
 - (BOOL)isEqual:(id)object

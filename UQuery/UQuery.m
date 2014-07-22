@@ -19,7 +19,18 @@
 
 + (instancetype)DeserializeFromJson:(NSString *) jsonString
 {
-    return [FieldQuery DeserializeFromJson:jsonString];
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+    NSString *key = [NSString stringWithString:[jsonDic keyEnumerator].nextObject];
+    
+    if ([key isEqualToString:@"$and"] || [key isEqualToString:@"$or"]) {
+        return [RelationQuery DeserializeFromJson:jsonString];
+    }
+    else
+    {
+        return [FieldQuery DeserializeFromJson:jsonString];
+    }
 }
 
 + (instancetype)greaterWithKey:(NSString *) key andValue:(NSObject*) val

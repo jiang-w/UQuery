@@ -9,7 +9,7 @@
 #import "FieldQuery.h"
 
 #define Default_Date_Format @"yyyy-MM-dd'T'HH:mm:ss"
-#define Type_Mapping_Json [NSArray arrayWithObjects:@"$gt", @"$gte", @"$lt", @"$lte", @"$eq", @"$ne", @"$in", @"$nin",@"$lk", nil]
+#define Type_Mapping_Json @[@"$gt", @"$gte", @"$lt", @"$lte", @"$eq", @"$ne", @"$in", @"$nin",@"$lk"]
 #define TypeToJsonString(type) ([Type_Mapping_Json objectAtIndex:type])
 #define TypeFromJsonString(string) ([Type_Mapping_Json indexOfObject:string])
 

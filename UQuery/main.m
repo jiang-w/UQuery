@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "UQuery.h"
-#import "RelationQuery.h"
 
 int main(int argc, const char * argv[])
 {
@@ -23,6 +22,9 @@ int main(int argc, const char * argv[])
         NSLog(@"%@",uq3);
         NSLog(@"%@",uq4);
         
+        UQuery *uq5 = [UQuery DeserializeFromJson:[uq4 serializeToJson]];
+        NSLog(@"%@",uq5);
+
         NSString *objClass = NSStringFromClass([uq4 class]);
         NSLog(@"%@",objClass);
     }
