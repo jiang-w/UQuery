@@ -27,5 +27,6 @@ typedef enum {
 @property (readonly) QueryType type;
 
 - (instancetype)initKey:(NSString *) key andValue:(NSObject *) val andQueryType:(QueryType) typ;
++ (instancetype)generateFromDictionary:(NSDictionary *) dictionary;
 
 @end

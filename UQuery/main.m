@@ -27,5 +27,13 @@ int main(int argc, const char * argv[])
 
         NSString *objClass = NSStringFromClass([uq4 class]);
         NSLog(@"%@",objClass);
+        
+        if ([uq5 isEqual:uq4]) {
+            printf("YES\n");
+        }
+        else
+        {
+            printf("NO\n");
+        }
     }
 }

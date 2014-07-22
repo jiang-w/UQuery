@@ -52,33 +52,6 @@
     return json;
 }
 
-+ (instancetype)DeserializeFromJson:(NSString *) jsonString
-{
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *error;
-    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-    
-    NSString *key = [NSString stringWithString:[jsonDic keyEnumerator].nextObject];
-    id val = [jsonDic objectForKey:key];
-    QueryType typ = equal;
-    
-    if ([val isKindOfClass:[NSDictionary class]]) {
-        typ = (int)TypeFromJsonString([val keyEnumerator].nextObject);
-        val = [val objectEnumerator].nextObject;
-    }
-    
-    if ([val isKindOfClass:[NSString class]]) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:Default_Date_Format];
-        NSDate *date =[dateFormatter dateFromString:val];
-        if(date) {
-            val = date;
-        }
-    }
-    
-    return [[FieldQuery alloc] initKey:key andValue:val andQueryType:typ];
-}
-
 - (BOOL)isEqual:(id)object
 {
     if (object == nil) {
@@ -108,6 +81,42 @@
 - (NSString *)description
 {
     return [self serializeToJson];
+}
+
++ (instancetype)DeserializeFromJson:(NSString *) jsonString
+{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+    return [FieldQuery generateFromDictionary:jsonDic];
+}
+
++ (instancetype)generateFromDictionary:(NSDictionary *) dictionary
+{
+    FieldQuery *query;
+    if([dictionary count] == 1)
+    {
+        NSString *key = [[dictionary allKeys] firstObject];
+        id value = [[dictionary allValues] firstObject];
+        QueryType type = equal;
+        
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            type = (int)TypeFromJsonString([[value allKeys] firstObject]);
+            value = [[value allValues] firstObject];
+        }
+        
+        if ([value isKindOfClass:[NSString class]]) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:Default_Date_Format];
+            NSDate *date =[dateFormatter dateFromString:value];
+            if(date) {
+                value = date;
+            }
+        }
+        
+        query = [[FieldQuery alloc] initKey:key andValue:value andQueryType:type];
+    }
+    return query;
 }
 
 @end

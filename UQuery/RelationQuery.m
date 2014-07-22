@@ -61,15 +61,13 @@
     NSError *error;
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
     
-    RelationType typ = (int)TypeFromJsonString([jsonDic keyEnumerator].nextObject);
-    NSArray *values = [jsonDic objectEnumerator].nextObject;
+    RelationType typ = (int)TypeFromJsonString([[jsonDic allKeys] firstObject]);
+    NSArray *values = [[jsonDic allValues] firstObject];
     
     RelationQuery *rq = [[RelationQuery alloc] init];
-    [rq setValue:[NSNumber numberWithInt:typ] forKey:@"_relation"];
+    rq -> _relation = typ;
     for (id item in values) {
-        jsonData = [NSJSONSerialization dataWithJSONObject:item options:0 error:&error];
-        NSString *json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [rq.queries addObject:[FieldQuery DeserializeFromJson:json]];
+        [rq.queries addObject:[FieldQuery generateFromDictionary:item]];
     }
     
     return rq;
