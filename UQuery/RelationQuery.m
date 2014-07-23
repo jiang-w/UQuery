@@ -23,22 +23,36 @@
     return self;
 }
 
-- (instancetype)initWithRelation:(RelationType) relation andFieldQuery:(FieldQuery *) query,...
+- (instancetype)initWithRelation:(RelationType) relation andQuerise:(UQuery *) query,...
 {
     if (self = [self init]) {
         _relation = relation;
+        
+        NSMutableArray *queryArray = [NSMutableArray array];
         va_list argList;
-        id arg;
-        if (query) {
-            [_queries addObject:query];
-            va_start(argList, query);
-            while((arg = va_arg(argList,id))) {
-                [_queries addObject:arg];
-            }
-            va_end(argList);
+        id arg = query;
+        va_start(argList, query);
+        while (arg) {
+            [queryArray addObject:arg];
+            arg = va_arg(argList,id);
         }
+        va_end(argList);
+        
+        [self addQueriseFromArray:queryArray];
     }
     return self;
+}
+
+- (void)addQueriseFromArray:(NSArray *) array
+{
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[RelationQuery class]] && [obj relation] == self.relation) {
+            [self.queries unionSet:[obj queries]];
+        }
+        else {
+            [self.queries addObject:obj];
+        }
+    }];
 }
 
 - (NSString *)serializeToJson

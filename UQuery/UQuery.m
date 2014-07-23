@@ -71,33 +71,35 @@
 
 + (instancetype)andRelationWithQuerise:(UQuery *) query,...
 {
-    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:andRelation andFieldQuery:nil];
+    NSMutableArray *queryArray = [NSMutableArray array];
     va_list argList;
-    id arg;
-    if (query) {
-        [rq.queries addObject:query];
-        va_start(argList, query);
-        while((arg = va_arg(argList,id))) {
-            [rq.queries addObject:arg];
-        }
-        va_end(argList);
+    id arg = query;
+    va_start(argList, query);
+    while (arg) {
+        [queryArray addObject:arg];
+        arg = va_arg(argList,id);
     }
+    va_end(argList);
+
+    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:andRelation andQuerise:nil];
+    [rq addQueriseFromArray:queryArray];
     return rq;
 }
 
 + (instancetype)orRelationWithQuerise:(UQuery *) query,...
 {
-    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:orRelation andFieldQuery:nil];
+    NSMutableArray *queryArray = [NSMutableArray array];
     va_list argList;
-    id arg;
-    if (query) {
-        [rq.queries addObject:query];
-        va_start(argList, query);
-        while((arg = va_arg(argList,id))) {
-            [rq.queries addObject:arg];
-        }
-        va_end(argList);
+    id arg = query;
+    va_start(argList, query);
+    while (arg) {
+        [queryArray addObject:arg];
+        arg = va_arg(argList,id);
     }
+    va_end(argList);
+    
+    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:orRelation andQuerise:nil];
+    [rq addQueriseFromArray:queryArray];
     return rq;
 }
 
