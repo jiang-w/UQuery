@@ -80,7 +80,7 @@
         arg = va_arg(argList,id);
     }
     va_end(argList);
-
+    
     RelationQuery *rq = [[RelationQuery alloc] initWithRelation:andRelation andQuerise:nil];
     [rq addQueriseFromArray:queryArray];
     return rq;
@@ -101,6 +101,18 @@
     RelationQuery *rq = [[RelationQuery alloc] initWithRelation:orRelation andQuerise:nil];
     [rq addQueriseFromArray:queryArray];
     return rq;
+}
+
++ (instancetype)betweenWithKey:(NSString *) key fromValue:(NSObject *) from toValue:(NSObject *) to
+{
+    return [UQuery andRelationWithQuerise:[UQuery greaterOrEqualWithKey:key andValue:from], [UQuery lessOrEqualWithKey:key andValue:to], nil];
+}
+
++ (instancetype)inWithKey:(NSString *) key fromArray:(NSArray *) array
+{
+    FieldQuery *query = [[FieldQuery alloc] initKey:key andValue:array andQueryType:in];
+    return query;
+    
 }
 
 @end

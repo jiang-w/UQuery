@@ -20,5 +20,7 @@
 + (instancetype)notEqualWithKey:(NSString *) key andValue:(NSObject *) val;
 + (instancetype)andRelationWithQuerise:(UQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
 + (instancetype)orRelationWithQuerise:(UQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype)betweenWithKey:(NSString *) key fromValue:(NSObject *) from toValue:(NSObject *) to;
++ (instancetype)inWithKey:(NSString *) key fromArray:(NSArray *) array;
 
 @end
