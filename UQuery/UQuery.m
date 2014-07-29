@@ -115,4 +115,10 @@
     
 }
 
++ (instancetype)likeWithKey:(NSString *) key andRegexString:(NSString *) regexString
+{
+    FieldQuery *query = [[FieldQuery alloc] initKey:key andValue:regexString andQueryType:like];
+    return query;
+}
+
 @end
