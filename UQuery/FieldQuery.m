@@ -15,6 +15,7 @@
 
 @implementation FieldQuery
 
+#pragma mark Initialization
 - (instancetype)initKey:(NSString *) key andValue:(NSObject *) val andQueryType:(QueryType) typ
 {
     if (self = [super init]) {
@@ -25,6 +26,7 @@
     return self;
 }
 
+#pragma mark Serialize and Deserialize
 - (NSString *)serializeToJson
 {
     NSString *json;
@@ -50,37 +52,6 @@
         json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
     return json;
-}
-
-- (BOOL)isEqual:(id)object
-{
-    if (object == nil) {
-        return NO;
-    }
-    if (self == object) {
-        return YES;
-    }
-    if ([object isMemberOfClass:[self class]]) {
-        if([[self serializeToJson] isEqualToString:[object serializeToJson]]) {
-            return YES;
-        }
-        else {
-            return NO;
-        }
-    }
-    else {
-        return NO;
-    }
-}
-
-- (NSUInteger)hash
-{
-    return [[self serializeToJson] hash];
-}
-
-- (NSString *)description
-{
-    return [self serializeToJson];
 }
 
 + (instancetype)DeserializeFromJson:(NSString *) jsonString
@@ -117,6 +88,38 @@
         query = [[FieldQuery alloc] initKey:key andValue:value andQueryType:type];
     }
     return query;
+}
+
+#pragma mark Override
+- (BOOL)isEqual:(id)object
+{
+    if (object == nil) {
+        return NO;
+    }
+    if (self == object) {
+        return YES;
+    }
+    if ([object isMemberOfClass:[self class]]) {
+        if([[self serializeToJson] isEqualToString:[object serializeToJson]]) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
+    else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash
+{
+    return [[self serializeToJson] hash];
+}
+
+- (NSString *)description
+{
+    return [self serializeToJson];
 }
 
 @end

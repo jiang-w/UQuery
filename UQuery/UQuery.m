@@ -12,6 +12,7 @@
 
 @implementation UQuery
 
+#pragma mark Serialize and Deserialize
 - (NSString *)serializeToJson;
 {
     return nil;
@@ -33,6 +34,7 @@
     }
 }
 
+#pragma mark Static Method
 + (instancetype)greaterWithKey:(NSString *) key andValue:(NSObject*) val
 {
     FieldQuery *query = [[FieldQuery alloc] initKey:key andValue:val andQueryType:greater];

@@ -14,6 +14,7 @@
 
 @implementation RelationQuery
 
+#pragma mark Initialization
 - (id)init
 {
     if (self == [super init]) {
@@ -55,6 +56,7 @@
     }];
 }
 
+#pragma mark Serialize and Deserialize
 - (NSString *)serializeToJson
 {
     NSString *json;
@@ -87,6 +89,7 @@
     return rq;
 }
 
+#pragma mark Override
 - (BOOL)isEqual:(id)object
 {
     if (object == nil) {
