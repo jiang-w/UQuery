@@ -11,17 +11,17 @@
 @interface UQuery : NSObject
 
 - (NSString *)serializeToJson;
-+ (instancetype)DeserializeFromJson:(NSString *) jsonString;
-+ (instancetype)greaterWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)greaterOrEqualWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)lessWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)lessOrEqualWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)equalWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)notEqualWithKey:(NSString *) key andValue:(NSObject *) val;
-+ (instancetype)andRelationWithQuerise:(UQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
-+ (instancetype)orRelationWithQuerise:(UQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
-+ (instancetype)betweenWithKey:(NSString *) key fromValue:(NSObject *) from toValue:(NSObject *) to;
-+ (instancetype)inWithKey:(NSString *) key fromArray:(NSArray *) array;
-+ (instancetype)likeWithKey:(NSString *) key andRegexString:(NSString *) regexString;
++ (instancetype)DeserializeFromJson:(NSString *)jsonString;
++ (instancetype)greaterWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)greaterOrEqualWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)lessWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)lessOrEqualWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)equalWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)notEqualWithKey:(NSString *)key andValue:(NSObject *)val;
++ (instancetype)andRelationWithQuerise:(UQuery *)query, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype)orRelationWithQuerise:(UQuery *)query, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype)betweenWithKey:(NSString *)key fromValue:(NSObject *)from toValue:(NSObject *)to;
++ (instancetype)inWithKey:(NSString *)key fromArray:(NSArray *)array;
++ (instancetype)likeWithKey:(NSString *)key andRegexString:(NSString *)regexString;
 
 @end

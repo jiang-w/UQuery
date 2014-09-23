@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "UQuery.h"
-#import "FieldQuery.h"
 
 typedef enum {
     andRelation,
@@ -19,7 +19,7 @@ typedef enum {
 @property (readonly) RelationType relation;
 @property (readonly) NSMutableSet *queries;
 
-- (instancetype)initWithRelation:(RelationType) relation andQuerise:(UQuery *) query, ... NS_REQUIRES_NIL_TERMINATION;
-- (void)addQueriseFromArray:(NSArray *) array;
+- (instancetype)initWithRelation:(RelationType)relation andQuerise:(UQuery *)query, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithRelation:(RelationType)relation andQueryArray:(NSArray *)querise;
 
 @end

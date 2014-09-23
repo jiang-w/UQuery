@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "UQuery.h"
 
 typedef enum {
@@ -26,7 +27,6 @@ typedef enum {
 @property (readonly) NSObject *value;
 @property (readonly) QueryType type;
 
-- (instancetype)initKey:(NSString *) key andValue:(NSObject *) val andQueryType:(QueryType) typ;
-+ (instancetype)generateFromDictionary:(NSDictionary *) dictionary;
+- (instancetype)initKey:(NSString *)key andValue:(NSObject *)val andQueryType:(QueryType)typ;
 
 @end

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "UQuery.h"
-#import "FieldQuery.h"
 
 int main(int argc, const char * argv[])
 {

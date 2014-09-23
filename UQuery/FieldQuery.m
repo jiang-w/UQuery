@@ -16,7 +16,7 @@
 @implementation FieldQuery
 
 #pragma mark Initialization
-- (instancetype)initKey:(NSString *) key andValue:(NSObject *) val andQueryType:(QueryType) typ
+- (instancetype)initKey:(NSString *)key andValue:(NSObject *)val andQueryType:(QueryType)typ
 {
     if (self = [super init]) {
         _key = key;
@@ -54,7 +54,7 @@
     return json;
 }
 
-+ (instancetype)DeserializeFromJson:(NSString *) jsonString
++ (instancetype)DeserializeFromJson:(NSString *)jsonString
 {
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
@@ -62,7 +62,7 @@
     return [FieldQuery generateFromDictionary:jsonDic];
 }
 
-+ (instancetype)generateFromDictionary:(NSDictionary *) dictionary
++ (instancetype)generateFromDictionary:(NSDictionary *)dictionary
 {
     FieldQuery *query;
     if([dictionary count] == 1)

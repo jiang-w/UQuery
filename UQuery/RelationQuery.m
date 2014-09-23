@@ -24,27 +24,36 @@
     return self;
 }
 
-- (instancetype)initWithRelation:(RelationType) relation andQuerise:(UQuery *) query,...
+- (instancetype)initWithRelation:(RelationType)relation andQuerise:(UQuery *)query,...
 {
     if (self = [self init]) {
         _relation = relation;
         
-        NSMutableArray *queryArray = [NSMutableArray array];
+        NSMutableArray *querise = [NSMutableArray array];
         va_list argList;
         id arg = query;
         va_start(argList, query);
         while (arg) {
-            [queryArray addObject:arg];
+            [querise addObject:arg];
             arg = va_arg(argList,id);
         }
         va_end(argList);
         
-        [self addQueriseFromArray:queryArray];
+        [self addQueriseFromArray:querise];
     }
     return self;
 }
 
-- (void)addQueriseFromArray:(NSArray *) array
+- (instancetype)initWithRelation:(RelationType)relation andQueryArray:(NSArray *)querise
+{
+    if (self = [self init]) {
+        _relation = relation;
+        [self addQueriseFromArray:querise];
+    }
+    return self;
+}
+
+- (void)addQueriseFromArray:(NSArray *)array
 {
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[RelationQuery class]] && [obj relation] == self.relation) {
@@ -62,7 +71,7 @@
     NSString *json;
     if ([_queries count] > 1) {
         NSMutableArray *items = [NSMutableArray array];
-        for (FieldQuery *fq in _queries) {
+        for (UQuery *fq in _queries) {
             [items addObject:[fq serializeToJson]];
         }
         json = [NSString stringWithFormat:@"{\"%@\":[%@]}"
@@ -71,21 +80,26 @@
     return json;
 }
 
-+ (instancetype)DeserializeFromJson:(NSString *) jsonString
++ (instancetype)DeserializeFromJson:(NSString *)jsonString
 {
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
     
     RelationType typ = (int)TypeFromJsonString([[jsonDic allKeys] firstObject]);
+    NSMutableArray *querise = [NSMutableArray arrayWithCapacity:0];
+    
     NSArray *values = [[jsonDic allValues] firstObject];
+    [values enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([NSJSONSerialization isValidJSONObject:obj]) {
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [querise addObject:[UQuery DeserializeFromJson:json]];
+        }
+    }];
     
-    RelationQuery *rq = [[RelationQuery alloc] init];
-    rq -> _relation = typ;
-    for (id item in values) {
-        [rq.queries addObject:[FieldQuery generateFromDictionary:item]];
-    }
-    
+    RelationQuery *rq = [[RelationQuery alloc] initWithRelation:typ andQueryArray:querise];
     return rq;
 }
 
